@@ -761,7 +761,7 @@ class TestQuantizePT2E(QuantizationTestCase):
             M(), example_inputs, is_per_channel=True
         )
 
-    def test_prepare_qat_conv_bn_fusion_no_conv_bias(self):
+    def test_qat_conv_bn_fusion_no_conv_bias(self):
         class M1(torch.nn.Module):
             """
             Single conv + BN with no conv bias.
@@ -804,16 +804,16 @@ class TestQuantizePT2E(QuantizationTestCase):
             M1(), example_inputs, is_per_channel=True, has_relu=False, has_bias=False
         )
         self._verify_symmetric_qnnpack_qat_numerics(
-            M1(), example_inputs, is_per_channel=False
+            M1(), example_inputs, is_per_channel=False, verify_convert=True,
         )
         self._verify_symmetric_qnnpack_qat_numerics(
-            M1(), example_inputs, is_per_channel=True
+            M1(), example_inputs, is_per_channel=True, verify_convert=True,
         )
         self._verify_symmetric_qnnpack_qat_numerics(
-            M2(), example_inputs, is_per_channel=False
+            M2(), example_inputs, is_per_channel=False, verify_convert=True,
         )
         self._verify_symmetric_qnnpack_qat_numerics(
-            M2(), example_inputs, is_per_channel=True
+            M2(), example_inputs, is_per_channel=True, verify_convert=True,
         )
 
     def test_prepare_qat_conv_bn_relu_fusion(self):
